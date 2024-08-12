@@ -2,20 +2,3 @@
   margin: 0;
   padding: 0;
 }
-
-.container {
-  display: grid;
-  grid-template-rows: auto;
-  grid-row-gap: 1rem;
-}
-
-.content {
-  position: relative;
-  width: auto;
-  height: auto;
-  
-}
-
-.header {
-  margin: 0 auto;
-}

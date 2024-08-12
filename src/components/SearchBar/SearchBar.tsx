@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchWeather } from '../store/reducers.ts';
+import { fetchWeather } from '../../store/reducers.ts';
 import styles from './SerchBar.module.css';
-import store from '../store/store.ts';
+import store from '../../store/store.ts';
 
 interface PropsType {
     setSearchDengrees: (value: string) => void;

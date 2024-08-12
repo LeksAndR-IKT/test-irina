@@ -1,32 +1,10 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { WeatherState, CityInfoResponse, WeatherDataResponse,  } from './types';
 
 const Permanent = 32;
 const TRANSFER_CONVERSION_TO_mmHg = 0.750062;
 const API_KEY = 'c51ddf8fb51d348be1802d5a7a1c8edb'
-
-interface Coord {
-    lon: number | null;
-    lat: number | null;
-}
-
-interface Main {
-    temp: number | null;
-    humidity: number | null;
-    temp_min: number | null;
-    temp_max: number | null;
-    grnd_level: number | null;
-    temperatureTitle: string;
-}
-
-interface WeatherState {
-    name: string | null;
-    coord: Coord;
-    main: Main;
-    windSpeed: number | null;
-    errorSearch: string | null | undefined;
-    tempName: string | null;
-}
 
 const initialState: WeatherState = {
     name: null,
@@ -45,26 +23,10 @@ const initialState: WeatherState = {
     windSpeed: null,
     errorSearch: null,
     tempName: null,
+    users: [
+      {id:0, login: 'user', password: 'user'},
+    ]
 };
-
-interface CityInfoResponse {
-    lat: number;
-    lon: number;
-}
-
-interface WeatherDataResponse {
-    name: string;
-    main: {
-        temp: number | null;
-        humidity: number | null;
-        temp_min: number | null;
-        temp_max: number | null;
-        grnd_level?: number;
-    };
-    wind: {
-        speed: number;
-    };
-}
 
 export const fetchWeather = createAsyncThunk<WeatherState, string>(
     'weather/fetchWeather',
@@ -126,6 +88,9 @@ const weatherSlice = createSlice({
       },
       setTempName(state, action: PayloadAction<string>) {
         state.main.temperatureTitle = action.payload;
+      },
+      setUser(state, action) {
+        state.users.push(action.payload)
       }
     },
     extraReducers: (builder) => {
@@ -150,5 +115,5 @@ const weatherSlice = createSlice({
   },
 });
 
-export const { setCelsius, setFahrenheit, setTempName } = weatherSlice.actions;
+export const { setCelsius, setFahrenheit, setTempName, setUser } = weatherSlice.actions;
 export default weatherSlice.reducer;

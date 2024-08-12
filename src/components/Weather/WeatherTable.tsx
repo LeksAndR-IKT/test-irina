@@ -1,34 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './WeatherDisplay.module.css';
-import { setCelsius, setFahrenheit, setTempName } from '../store/reducers.ts';
+import { setCelsius, setFahrenheit, setTempName } from '../../store/reducers.ts';
+import { RootState } from '../../store/types.ts';
 
 type PropsType = {
     searchDengrees: string | null;
-    setSearchDengrees: (value: string) => void; // Изменено на принимающий параметр
+    setSearchDengrees: (value: string) => void;
 };
-
-interface MainWeatherInfo {
-    temp: number | null;
-    temp_min: number | null;
-    temp_max: number | null;
-    humidity: number | null;
-    grnd_level: number | null;
-}
-
-interface WeatherCoord {
-    lon: number | null;
-    lat: number | null;
-}
-
-interface RootState {
-    main: MainWeatherInfo;
-    errorSearch: string | null;
-    name: string | null;
-    coord: WeatherCoord;
-    windSpeed: number | null;
-    tempName: string | null;
-}
 
 const WeatherTable: React.FC<PropsType> = ({ searchDengrees, setSearchDengrees }) => {
     const mainWeatherInfo = useSelector((state: RootState) => state.main);
