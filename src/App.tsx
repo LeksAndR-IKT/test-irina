@@ -5,9 +5,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import setupStore from './store/store.ts';
 
-import Home from './Pages//Home/Index.tsx'
-import Authorization from './Pages/Authorization/Index.tsx';
-import LogOut from './components/Auth/Registration/Registration.tsx';
+import Home from './pages/Home/Index.tsx'
+import Authorization from './pages/Authorization/Index.tsx';
+import LogOut from './pages/Registration/Index.tsx';
 
 const store = setupStore()
 const App: FC = () => {

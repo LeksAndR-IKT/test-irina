@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import { verificationOfAuthorization } from "../../../utils/auth.ts";
+import { verificationOfAuthorization } from "../../utils/auth.ts";
 import { useSelector } from "react-redux";
-import { RootReducerType } from "../../../store/store.ts";
-import { setUser } from "../../../store/reducers.ts";
-import { useAppDispatch } from "../../../hooks/storeHooks.ts";
+import { RootReducerType } from "../../store/store.ts";
+import { setUser } from "../../store/reducers.ts";
+import { useAppDispatch } from "../../hooks/storeHooks.ts";
 import { useNavigate } from "react-router-dom";
 
 import styles from './styles.module.css'
