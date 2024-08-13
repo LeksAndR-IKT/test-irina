@@ -24,7 +24,7 @@ const initialState: WeatherState = {
     errorSearch: null,
     tempName: null,
     users: [
-      {id:0, login: 'user', password: 'user'},
+      {id:0, login: 'user', password: 'user!'},
     ]
 };
 

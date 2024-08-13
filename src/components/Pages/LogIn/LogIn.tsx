@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import styles from './LogIn.module.css'
-import  SearchBar from '../SearchBar/SearchBar';
+import  SearchBar from '../SearchBar/SearchBar.tsx';
 import WeatherTable from '../Weather/WeatherTable.tsx';
-import ScatterPlot from "../Weather/WeatherGraph/WeatherGraph.tsx";
+import ScatterPlot from "../Weather/WeatherGraph//WeatherGraph.tsx";
 import { useSelector } from "react-redux";
 import { RootReducerType } from "../../../store/store.ts";
 

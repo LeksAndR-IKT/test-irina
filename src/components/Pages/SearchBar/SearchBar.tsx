@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { fetchWeather } from '../../store/reducers.ts';
+import { fetchWeather } from '../../../store/reducers.ts';
 import styles from './SerchBar.module.css';
-import { useAppDispatch } from '../../hooks/storeHooks.ts';
+import { useAppDispatch } from '../../../hooks/storeHooks.ts';
 
 interface PropsType {
     setSearchDengrees: (value: string) => void;

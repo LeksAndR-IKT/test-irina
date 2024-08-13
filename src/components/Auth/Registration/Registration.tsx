@@ -11,6 +11,7 @@ let Registration: React.FC<any> = () => {
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [errorLog, setErrorLog] = useState<boolean>(false)
   const [errorLogOrPass, setErrorLogOrPass] = useState<boolean>(false)
 
   const users = useSelector((state: RootReducerType) => state.users)
@@ -21,12 +22,15 @@ let Registration: React.FC<any> = () => {
 
   const handleRegistration = (e) => {
     e.preventDefault()
-    if (!verificationOfAuthorization(users, username, password)){
+    if (/^[0-9!#№%?*]/.test(password)){
+      setErrorLogOrPass(true)
+    }else if (!verificationOfAuthorization(users, username, password)){
       dispatch(setUser({username, password}))
       history('/log-in-user')
     } else {
-      setErrorLogOrPass(true)
+      setErrorLog(true)
     }
+    
   }
   return (<div className={styles.container}>
     <h2>Регистрация</h2>
@@ -37,25 +41,31 @@ let Registration: React.FC<any> = () => {
         value={username}
         onChange={(e) => {
           setUsername(e.target.value)
+          setErrorLog(false)
           setErrorLogOrPass(false)  }
         }
         required
         className={styles.input}
       />
+      {errorLog && <div className={styles.error}>
+          Это имя уже занято, придумайте другое
+        </div>}
       <input
         type="password"
         placeholder="Придумайте пароль"
         value={password}
         onChange={(e) => {
           setPassword(e.target.value)
+          setErrorLog(false)
           setErrorLogOrPass(false)  }
         }
         required
         className={styles.input}
       />
       {errorLogOrPass && <div className={styles.error}>
-          Это имя уже занято, придумайте другое
+          Слишком слабый пароль, используйте цифры, спец. знаки такие как ! # № % ? *
         </div>}
+      
       <button className={styles.button}>Зарегистрироваться</button>
     </form>
   </div>
