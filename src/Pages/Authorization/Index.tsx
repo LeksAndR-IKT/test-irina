@@ -1,9 +1,13 @@
-import styles from './Authorization.module.css'
 import React, {useState} from 'react';
-import { verificationOfAuthorization } from '../../../utils/auth.ts';
-import { useSelector } from 'react-redux';
-import { RootReducerType } from '../../../store/store.ts';
+
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { verificationOfAuthorization } from '../../utils/auth.ts';
+
+import { RootReducerType } from '../../store/store.ts';
+
+import styles from './styles.module.css'
 
 const Authorization:React.FC<any> = () => {
     const [username, setUsername] = useState<string>('');

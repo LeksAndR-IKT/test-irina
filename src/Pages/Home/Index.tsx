@@ -1,10 +1,14 @@
 import React, {useState} from "react";
-import styles from './LogIn.module.css'
-import  SearchBar from '../SearchBar/SearchBar.tsx';
-import WeatherTable from '../Weather/WeatherTable.tsx';
-import ScatterPlot from "../Weather/WeatherGraph//WeatherGraph.tsx";
+
 import { useSelector } from "react-redux";
-import { RootReducerType } from "../../../store/store.ts";
+
+import  SearchBar from '../../components/SearchBar/SearchBar.tsx';
+import WeatherTable from '../../components/Weather/WeatherTable.tsx';
+import ScatterPlot from "../../components/Weather/WeatherGraph/WeatherGraph.tsx";
+
+import { RootReducerType } from "../../store/store.ts";
+
+import styles from './styles.module.css'
 
 let LogIn: React.FC<any> = () => {
   const {temp, temp_max, temp_min} = useSelector((state: RootReducerType) => state.main)

@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import styles from './WeatherDisplay.module.css';
-import { setCelsius, setFahrenheit, setTempName } from '../../../store/reducers.ts';
-import { RootState } from '../../../store/types.ts';
-import { useAppDispatch } from '../../../hooks/storeHooks.ts';
+
+import { setCelsius, setFahrenheit, setTempName } from '../../store/reducers.ts';
+import { RootState } from '../../store/types.ts';
+import { useAppDispatch } from '../../hooks/storeHooks.ts';
+
+import styles from './styles.module.css';
 
 type PropsType = {
     searchDengrees: string | null;
