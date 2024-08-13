@@ -1,14 +1,15 @@
 import styles from './Authorization.module.css'
 import React, {useState} from 'react';
-import { verificationOfAuthorization } from '../../functions/functions.ts';
+import { verificationOfAuthorization } from '../../../utils/auth.ts';
 import { useSelector } from 'react-redux';
-import { RootReducerType } from '../../store/store.ts';
+import { RootReducerType } from '../../../store/store.ts';
 import { useNavigate } from 'react-router-dom';
 
 const Authorization:React.FC<any> = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [showInfo, setShowInfo] = useState(false);
+    const [username, setUsername] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [showInfo, setShowInfo] = useState<boolean>(false);
+    const [errorLogOrPass, setErrorLogOrPass] = useState<boolean>(false)
 
     const users = useSelector((state: RootReducerType) => state.users)
 
@@ -19,8 +20,7 @@ const Authorization:React.FC<any> = () => {
         if(verificationOfAuthorization(users, username, password)){
             steep('/log-in-user')
         } else {
-            setUsername('')
-            setPassword('')
+            setErrorLogOrPass(true)
         }
     };
 
@@ -40,7 +40,10 @@ const Authorization:React.FC<any> = () => {
                     type="text"
                     placeholder="Логин"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={(e) => {
+                        setUsername(e.target.value) 
+                        setErrorLogOrPass(false)}
+                    }
                     required
                     className={styles.input}
                 />
@@ -48,10 +51,17 @@ const Authorization:React.FC<any> = () => {
                     type="password"
                     placeholder="Пароль"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                        setPassword(e.target.value) 
+                        setErrorLogOrPass(false)}
+                    }
                     required
                     className={styles.input}
                 />
+                {errorLogOrPass && <div className={styles.error}>
+                    Неверный логин или пароль
+                </div>
+                }
                 <button type="submit" className={styles.button}>Авторизоваться</button>
                 <button type="button" onClick={handleRegister} className={styles.button}>Зарегистрироваться</button>
             </form>

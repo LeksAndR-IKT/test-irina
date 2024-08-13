@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { fetchWeather } from '../../store/reducers.ts';
 import styles from './SerchBar.module.css';
-import store from '../../store/store.ts';
+import { useAppDispatch } from '../../hooks/storeHooks.ts';
 
 interface PropsType {
     setSearchDengrees: (value: string) => void;
@@ -11,12 +10,11 @@ interface PropsType {
 const SearchBar: React.FC<PropsType> = ({ setSearchDengrees }) => {
     const [recentSearches, setRecentSearches] = useState<string[]>([]);
     const [city, setCity] = useState<string>('');
-    type AppDispatch = typeof store.dispatch
-    const dispatch = useDispatch<AppDispatch>();
+
+    const dispatch = useAppDispatch()
 
     const handleSearch = () => {
         if (!city) return;
-
         const updatedSearches = [city, ...recentSearches].slice(0, 5);
         setRecentSearches(updatedSearches);
         localStorage.setItem('recentSearches', JSON.stringify(updatedSearches));

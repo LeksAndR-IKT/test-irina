@@ -35,14 +35,15 @@ export const fetchWeather = createAsyncThunk<WeatherState, string>(
         const cityInfoResponse = await axios.get<CityInfoResponse[]>(
           `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${API_KEY}`
         );
-        
+        console.log(cityInfoResponse)
         if (!cityInfoResponse.data.length) {
           throw new Error('Город не найден');
         }
 
         const {data} = await axios.get<WeatherDataResponse>(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${cityInfoResponse.data[0].lat}&lon=${cityInfoResponse.data[0].lon}&appid=${API_KEY}`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${cityInfoResponse.data[0].lat}&lon=${cityInfoResponse.data[0].lon}&appid=${API_KEY}`
         );
+        console.log(data)
         const {temp, humidity, temp_min, temp_max, grnd_level} = data.main
         return {
             name: data.name,
@@ -55,7 +56,7 @@ export const fetchWeather = createAsyncThunk<WeatherState, string>(
                 humidity,
                 temp_min,
                 temp_max,
-                grnd_level: grnd_level ? Number(grnd_level) * TRANSFER_CONVERSION_TO_mmHg : null,
+                grnd_level: grnd_level ? (Math.round(Number(grnd_level) * TRANSFER_CONVERSION_TO_mmHg)) : null,
                 temperatureTitle: 'Цельсия',
             },
             windSpeed: data.wind.speed,
@@ -90,7 +91,7 @@ const weatherSlice = createSlice({
         state.main.temperatureTitle = action.payload;
       },
       setUser(state, action) {
-        state.users.push(action.payload)
+        state.users.push({id: state.users.length, login: action.payload.username, password: action.payload.password})
       }
     },
     extraReducers: (builder) => {
@@ -101,9 +102,9 @@ const weatherSlice = createSlice({
           state.coord = action.payload.coord;
           state.main = {
             ...action.payload.main,
-            temp: (state.main.temperatureTitle !== 'Фаренгейт' ) ? Math.ceil((action.payload.main.temp ?? 273.15) - 273.15) : Math.ceil((action.payload.main.temp ?? 457.87) - 457.87),
-            temp_min: (state.main.temperatureTitle !== 'Фаренгейт') ? Math.ceil((action.payload.main.temp_min ?? 273.15) - 273.15) : Math.ceil((action.payload.main.temp_min  ?? 457.87) - 457.87),
-            temp_max: (state.main.temperatureTitle !== 'Фаренгейт') ? Math.ceil((action.payload.main.temp_max ?? 273.15) - 273.15) : Math.ceil((action.payload.main.temp_max  ?? 457.87) - 457.87),
+            temp: (state.main.temperatureTitle !== 'Фаренгейт' ) ? Math.round((action.payload.main.temp ?? 273.15) - 273.15) : Math.round((action.payload.main.temp ?? 457.87) - 457.87),
+            temp_min: (state.main.temperatureTitle !== 'Фаренгейт') ? Math.round((action.payload.main.temp_min ?? 273.15) - 273.15) : Math.round((action.payload.main.temp_min  ?? 457.87) - 457.87),
+            temp_max: (state.main.temperatureTitle !== 'Фаренгейт') ? Math.round((action.payload.main.temp_max ?? 273.15) - 273.15) : Math.round((action.payload.main.temp_max  ?? 457.87) - 457.87),
         };
         state.windSpeed = action.payload.windSpeed;
         state.errorSearch = null;

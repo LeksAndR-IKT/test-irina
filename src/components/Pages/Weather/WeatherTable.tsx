@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from './WeatherDisplay.module.css';
 import { setCelsius, setFahrenheit, setTempName } from '../../store/reducers.ts';
 import { RootState } from '../../store/types.ts';
+import { useAppDispatch } from '../../hooks/storeHooks.ts';
 
 type PropsType = {
     searchDengrees: string | null;
@@ -17,7 +18,7 @@ const WeatherTable: React.FC<PropsType> = ({ searchDengrees, setSearchDengrees }
     const windSpeed = useSelector((state: RootState) => state.windSpeed);
     const tempName = useSelector((state: RootState) => state.tempName);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         if (searchDengrees === 'celsius') {
